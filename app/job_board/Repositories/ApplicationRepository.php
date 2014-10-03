@@ -59,4 +59,20 @@ class ApplicationRepository {
         $application->delete();
         ApplicationComment::where('application_id', '=', $app_id)->delete();
     }
+
+    /**
+     * Create a new application comment
+     *
+     * @param Form input   $input
+     * @param Int   $app_id
+     * @param Object   $user
+     */
+    public function create_app_comment($input, $app_id, $user)
+    {
+        $app_comment = new ApplicationComment;
+        $app_comment->application_id = $app_id;
+        $app_comment->user_id = $user->id;
+        $app_comment->body = $input['application_comment'];
+        $app_comment->save();
+    }
 } 

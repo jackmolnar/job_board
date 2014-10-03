@@ -5,8 +5,6 @@ use User;
 use Hash;
 use Auth;
 use UserDetails;
-use Job;
-use Application;
 use DB;
 use \job_board\Validators\UserValidator;
 
@@ -174,17 +172,30 @@ class UserRepository {
 //            $query->where('status_id', '!=', 2);
 //        }))->get();
 
-        $job_apps = DB::table('jobs')
-                        ->join('applications', 'jobs.id', '=', 'applications.job_id')
-                        ->join('users', 'applications.user_id', '=', 'users.id')
-                        ->where('jobs.user_id', '=', $user->id)
+//        $job_apps = DB::table('jobs')
+//                        ->join('applications', 'jobs.id', '=', 'applications.job_id')
+//                        ->join('users', 'applications.user_id', '=', 'users.id')
+//                        ->where('jobs.user_id', '=', $user->id)
+//                        ->whereExists(function($query)
+//                        {
+//                            $query->select(DB::raw(1))
+//                                    ->from('applications')
+//                                    ->whereRaw('applications.job_id = jobs.id');
+//                        })
+//                        ->get();
+        $job_apps = DB::table('jobs as j')->select(['j.*','j.id as job_id', 'a.id as app_id', 'u.*'])
+                        ->join('applications as a', 'j.id', '=', 'a.job_id')
+                        ->join('users as u', 'a.user_id', '=', 'u.id')
+                        ->where('j.user_id', '=', $user->id)
                         ->whereExists(function($query)
                         {
                             $query->select(DB::raw(1))
                                     ->from('applications')
-                                    ->whereRaw('applications.job_id = jobs.id');
+                                    ->whereRaw('a.job_id = j.id');
                         })
                         ->get();
+
+        //$job_apps = DB::statement("select j.*, a.id as app_id, u.* from `jobs` as j inner join `applications` as a on j.id = a.job_id inner join `users` as u on a.user_id = u.id where j.user_id = 2 and exists (select 1 from `applications` where a.job_id = j.id)");
 
 
         return $job_apps;

@@ -21,6 +21,8 @@ Route::get('jobs/apply/{job}', array('uses' => 'JobsController@getApply', 'as' =
 Route::post('jobs/apply/{job}', array('uses' => 'JobsController@postApply', 'as' => 'jobs.apply'));
 Route::resource('jobs', 'JobsController');
 
+Route::resource('jobs.applications.app-comments', 'ApplicationCommentsController');
+
 Route::resource('jobs.applications', 'ApplicationsController');
 
 //Route::get('/jobs/all', )

@@ -1,4 +1,4 @@
-@if(!empty($job_apps))
+@if(count($job_apps))
 <div class="row">
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -10,7 +10,7 @@
                     <th>Date Applied</th>
                         @foreach($job_apps as $application)
                             <tr>
-                                <td>{{ link_to('jobs/'.$application->id, $application->title )    }}</td>
+                                <td>{{ link_to('jobs/'.$application->job_id.'/applications/'.$application->app_id, $application->title )    }}</td>
                                 <td>{{ $application->first_name }} {{ $application->last_name }}</td>
                                 <td>{{ $application->created_at }}</td>
                             </tr>

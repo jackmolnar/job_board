@@ -26,8 +26,6 @@ class UsersController extends \BaseController {
 
         $job_applications = $this->user->job_apps($authed_user);
 
-        //return $authed_user->applications;
-
 		return View::make('users.index', ['user' => $authed_user, 'job_apps' => $job_applications]);
 	}
 
