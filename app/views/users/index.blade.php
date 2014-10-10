@@ -2,11 +2,11 @@
 
 @section('main_area')
 
+	<h1 class="page_headline">Welcome back {{ $user->first_name }}</h1>
+
     @include('../includes/main/success')
 
     @include('../includes/main/errors')
-
-	<h1>User Main Screen</h1>
 
     @if($user->role->title == 'Administrator')
         @include('../includes/profile/admin_index')

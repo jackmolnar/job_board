@@ -1,18 +1,24 @@
 <?php
 
+use job_board\Repositories\GradRepository;
 use \job_board\Repositories\UserRepository;
 
 class UsersController extends \BaseController {
 
 	protected $user;
+    /**
+     * @var GradRepository
+     */
+    private $grads;
 
-	function __construct(UserRepository $user)
+    function __construct(UserRepository $user, GradRepository $grads)
 	{
 		$this->beforeFilter('auth', ['except' => ['create', 'store', 'destroy'] ]);
 
 		$this->user = $user;
 
-	}
+        $this->grads = $grads;
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -26,8 +32,24 @@ class UsersController extends \BaseController {
 
         $job_applications = $this->user->job_apps($authed_user);
 
+        //return $job_applications;
+
 		return View::make('users.index', ['user' => $authed_user, 'job_apps' => $job_applications]);
 	}
+
+
+    public function all()
+    {
+        $user = $this->user->authed_user();
+
+        if($user->role->title == 'Administrator'){
+            $grads = $this->grads->all();
+        } else if ($user->role->title == 'Employment Specialist'){
+            $grads = $this->grads->all_users_grads($user);
+        }
+
+        return View::make('users.all', ['grads' => $grads]);
+    }
 
 	/**
 	 * Show the form for creating a new resource.
@@ -91,7 +113,9 @@ class UsersController extends \BaseController {
         //get or create user details
         $user_details = ($user->details == NULL) ? $this->user->create_user_details($id) : $user->details;
 
-        return View::make('users.edit', ['user' => $user, 'user_details' => $user_details]);
+        $dropdownArray = Program::returnDropdownArray();
+
+        return View::make('users.edit', ['user' => $user, 'user_details' => $user_details, 'all_programs' => $dropdownArray]);
 	}
 
 	/**

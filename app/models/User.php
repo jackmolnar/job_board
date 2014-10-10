@@ -56,7 +56,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     /**
-     * User is author of many jobs
+     * User belongs to many programs
      */
     public function programs()
     {

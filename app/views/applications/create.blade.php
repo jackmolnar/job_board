@@ -2,9 +2,11 @@
 
 @section('main_area')
 
-@include('../includes/main/success')
+<h1 class="page_headline">Request Application for {{ $job->title }}</h1>
 
-<h1>Request Application for {{ $job->title }}</h1>
+<div class="sub_row row">
+    @include('../includes/main/back_button')
+</div>
 
 	{{ Form::open(array('action' => ['ApplicationsController@store', $job->id])) }}
 

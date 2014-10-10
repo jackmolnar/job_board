@@ -1,3 +1,106 @@
+body {
+    font-family: "Titillium Web", sans-serif;
+}
+
+h4 {
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 700;
+}
+.panel-default .panel-heading {
+    background-color: #f2fff8;
+}
+/*
+Navigation
+*/
+.navbar-inverse{
+    background-color: #0e455d;
+}
+.navbar-inverse .navbar-brand{
+    color: white;
+    font-family: "Tillium Web", sans-serif;
+}
+
+
+/*
+Main Stuff
+*/
+
+.main{
+    padding:0px;
+}
+
+.page_headline{
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    margin-top:-0px;
+    margin-left: -15px;
+    padding-left: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: url("../images/squared_metal.png") repeat;
+    color: #504d4f;
+    box-shadow: 1px 1px 5px #999;
+    text-shadow: 1px 1px 1px #fff;
+}
 .half-text-area{
 	width: 50%;
+}
+.col_padding_fix{
+    padding-left: 0px;
+}
+
+.sidebar{
+    background-color: #0e455d;
+    top: 50px;
+}
+.sidebar .nav-sidebar li{
+    font-weight: 700;
+    color: #ccf2f9;
+}
+
+/*
+Sub Row
+*/
+.sub_row{
+    background-color: #f9edeb;
+    margin-top: -29px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+
+/*
+Tables
+*/
+table tr td, table tr th{
+    padding: 12px !important;
+}
+.table_link {
+    font-weight: bold;
+    color: #10607f;
+}
+.table_link:hover {
+    color: #109abf;
+}
+
+/*
+Buttons
+*/
+.btn-primary{
+    font-weight: bold;
+    background-color: #0e455d;
+    border-color: transparent;
+}
+
+/*
+program drop down
+*/
+.program_dropdown {
+    width:100%;
+    margin-bottom: 10px;
+}
+.program_dropdown select{
+    display: inline;
+    width: auto;
 }

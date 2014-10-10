@@ -27,7 +27,7 @@ class UserRepository {
      */
     public function get_user($id)
     {
-        $user = User::find($id);
+        $user = User::with('programs')->where('id', '=', $id)->first();
         return $user;
     }
 
@@ -92,6 +92,9 @@ class UserRepository {
             $user->last_name = $input['last_name'];
             $user->save();
 
+            //sync the users programs
+            $user->programs()->sync($input['programs']);
+
             $user_details = $user->details;
             $user_details->phone = $input['phone'];
             $user_details->text = isset($input['text'])?$input['text']:0;
@@ -100,7 +103,10 @@ class UserRepository {
             $user_details->city = $input['city'];
             $user_details->state = $input['state'];
             $user_details->zip = $input['zip'];
+            $user_details->employer_name = $input['employer_name'];
+            $user_details->position_title = $input['position_title'];
             $user_details->save();
+
         }
         return $valid;
     }
@@ -149,43 +155,10 @@ class UserRepository {
      */
     public function job_apps($user)
     {
-//        $jobs = $user->jobs;
-//        $applications = array();
-//
-//        foreach($jobs as $job)
-//        {
-//            if($job->applications)
-//            {
-//                foreach($job->applications as $application)
-//                {
-//                    array_push($applications, $application);
-//                }
-//            }
-//        }
-//        $job_apps = Application::with(array('job' => function ($query) use ($user)
-//        {
-//            $query->where('user_id', '=', $user->id);
-//        }))->get();
-
-//        $job_apps = Job::where('user_id', '=', $user->id)->with(array('applications' => function ($query)
-//        {
-//            $query->where('status_id', '!=', 2);
-//        }))->get();
-
-//        $job_apps = DB::table('jobs')
-//                        ->join('applications', 'jobs.id', '=', 'applications.job_id')
-//                        ->join('users', 'applications.user_id', '=', 'users.id')
-//                        ->where('jobs.user_id', '=', $user->id)
-//                        ->whereExists(function($query)
-//                        {
-//                            $query->select(DB::raw(1))
-//                                    ->from('applications')
-//                                    ->whereRaw('applications.job_id = jobs.id');
-//                        })
-//                        ->get();
-        $job_apps = DB::table('jobs as j')->select(['j.*','j.id as job_id', 'a.id as app_id', 'u.*'])
+        $job_apps = DB::table('jobs as j')->select(['j.*','j.id as job_id', 'j.title as job_title', 'a.id as app_id', 'u.*', 's.*', 's.title as status_title'])
                         ->join('applications as a', 'j.id', '=', 'a.job_id')
                         ->join('users as u', 'a.user_id', '=', 'u.id')
+                        ->join('application_status as s', 'a.status_id', '=', 's.id')
                         ->where('j.user_id', '=', $user->id)
                         ->whereExists(function($query)
                         {
@@ -196,8 +169,6 @@ class UserRepository {
                         ->get();
 
         //$job_apps = DB::statement("select j.*, a.id as app_id, u.* from `jobs` as j inner join `applications` as a on j.id = a.job_id inner join `users` as u on a.user_id = u.id where j.user_id = 2 and exists (select 1 from `applications` where a.job_id = j.id)");
-
-
         return $job_apps;
     }
 

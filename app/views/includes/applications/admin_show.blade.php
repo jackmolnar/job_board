@@ -1,9 +1,3 @@
-<div class="row">
-    <div class="col-lg-9">
-        <h1>My Application for {{ $job['title'] }} - {{ $job['company_name'] }}</h1>
-        <h4>Applied on {{ $application->created_at }}</h4>
-    </div>
-</div>
 
 		<div class="panel panel-default">
 		    <div class="panel-heading">Details</div>

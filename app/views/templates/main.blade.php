@@ -14,9 +14,11 @@
 
 	{{ HTML::style('assets/css/site_styles.css') }}
 
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,700' rel='stylesheet' type='text/css'>
+
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    {{--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>--}}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -27,25 +29,26 @@
 
 <body>
 
-	@include('../includes/main/top_nav')
+        @include('../includes/main/top_nav')
 
-	<div class="container-fluid">
-		<div class="row">
+        <div class="container-fluid">
+            <div class="row">
 
-			@include("../includes/main/side_nav")
+                @include("../includes/main/side_nav")
 
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
 
-				@yield('main_area')
+                    @yield('main_area')
 
-			</div><!-- end main -->
-		</div><!-- end row -->
-	</div><!-- end container -->
+                </div><!-- end main -->
+            </div><!-- end row -->
+        </div><!-- end container -->
 
 </body>
 	 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	{{ HTML::script('assets/js/bootstrap.min.js') }}
     {{ HTML::script('assets/js/deleteFix.js') }}
+    {{ HTML::script('assets/js/site.js') }}
 
 
 

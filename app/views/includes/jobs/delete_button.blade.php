@@ -1,0 +1,1 @@
+{{ link_to_action('JobsController@destroy', 'Delete', $job['id'], ['class' => 'btn btn-danger btn-xs', 'data-method' => 'delete']); }}

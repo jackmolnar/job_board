@@ -11,9 +11,10 @@ class JobValidator extends jb_validator {
 			'title' => 'required',
 			'description' => 'required',
 			'company_name' => 'required',
-			'company_address' => 'required',
 			'company_city' => 'required',
-			'company_state' => 'required'
+			'company_state' => 'required',
+            'contact_link' => 'url',
+            'contact_email' => 'email'
 		);
 
 

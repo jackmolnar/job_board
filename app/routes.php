@@ -14,6 +14,7 @@ Route::controller('auth', 'AuthController');
 
 Route::get('users/{id}/resume/', array('uses' => 'UsersController@getResume', 'as' => 'users.resume'));
 Route::post('users/{id}/resume/', array('uses' => 'UsersController@postResume', 'as' => 'users.resume'));
+Route::get('users/all', array('uses' => 'UsersController@all', 'as' => 'users.all'));
 Route::resource('users', 'UsersController');
 
 Route::get('jobs/all', array('uses' => 'JobsController@all', 'as' => 'jobs.all'));
@@ -25,7 +26,8 @@ Route::resource('jobs.applications.app-comments', 'ApplicationCommentsController
 
 Route::resource('jobs.applications', 'ApplicationsController');
 
-//Route::get('/jobs/all', )
+Route::get('ajax/programDropdown', array('uses' => 'AjaxController@program_dropdown', 'as' => 'ajax.program_dropdown'));
+
 
 Route::get('/', function()
 {

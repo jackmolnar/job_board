@@ -8,8 +8,11 @@
                     {{ $comment->author->first_name }} {{ $comment->author->last_name }} said at <br/>
                     {{ $comment->created_at }}
                 </div>
-                <div class="col-lg-10">
+                <div class="col-lg-7">
                     {{ $comment->body }}
+                </div>
+                <div class="col-md-3">
+                    @include('../includes/applications/comment_edit_buttons')
                 </div>
             </div>
             @endforeach

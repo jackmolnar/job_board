@@ -2,9 +2,12 @@
 
 @section('main_area')
 
-<a href="{{ URL::previous() }}">< Back</a>
 
-<h1>Edit Job</h1>
+<h1 class="page_headline">Edit Job</h1>
+
+<div class="sub_row row">
+    <a href="{{ URL::previous() }}">< Back</a>
+</div>
 	
 	@include('../includes/main/errors')
 
@@ -16,20 +19,26 @@
 
 		        <div class="row">
                     <div class="col-md-6">
-                        {{ Form::label('title', 'Title'); }}
+                        {{ Form::label('title', 'Title'); }} <span class="glyphicon glyphicon-asterisk" style="color: red"></span>
                         {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Title']); }}<br/>
 		            </div>
-		            @foreach($job->programs as $selected_program)
-                        <div class="col-md-6">
-                            {{ Form::label('programs', 'Program'); }}
-                            {{ Form::select('programs[]', $programs, $selected_program->id, ['class' => 'form-control', 'placeholder' => 'Title']); }}<br/>
-                        </div>
-                    @endforeach
+		            <div class="col-md-6" style="margin-bottom: 20px">
+                        {{ Form::label('programs', 'Associated Programs'); }}
+                        <a class="btn btn-default btn-xs add_program" style="margin-left: 25px">Add Program</a>
+                        <a class="btn btn-default btn-xs delete_program">Delete Program</a>
+
+                        @foreach($job->programs as $selected_program)
+                            <div class="col-md-6 program_dropdown">
+                                {{ Form::select('programs[]', $programs, $selected_program->id, ['class' => 'form-control', 'placeholder' => 'Title']); }}<br/>
+                            </div>
+                        @endforeach
+		            </div>
+
 		        </div>
 
 				<div class="row">
 					<div class="col-md-6">
-						{{ Form::label('description') }}<br/>
+						{{ Form::label('description') }} <span class="glyphicon glyphicon-asterisk" style="color: red"></span><br/>
 						{{ Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Description', 'rows' => '8']); }}<br/>
 
 						{{ Form::label('pay', 'Salary'); }}
@@ -46,10 +55,24 @@
 
 				</div><!-- end row -->
 
-				
+				<div class="row">
+                    <div class="col-md-6">
+                        {{ Form::label('compensation_extras') }}<br/>
+                        {{ Form::textarea('compensation_extras', null, ['class' => 'form-control', 'placeholder' => 'Compensation Extras', 'rows' => '3']); }}<br/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-6 col_padding_fix">
+                            {{ Form::label('contact_link', 'Contact Link or Email Address') }}<br/>
+                            {{ Form::url('contact_link', null, ['class' => 'form-control', 'placeholder' => 'Contact Link']); }}<br/>
+                            {{ Form::url('contact_email', null, ['class' => 'form-control', 'placeholder' => 'Contact Email']); }}<br/>
+                        </div>
+                        <div class="col-md-6">
+                            {{ Form::label('confidential', 'Confidential?') }}<br/>
+                            {{ Form::checkbox('confidential', 1, null); }}<br/>
+                        </div>
+                    </div>
+				</div>
 
-				{{ Form::label('compensation_extras') }}<br/>
-				{{ Form::textarea('compensation_extras', null, ['class' => 'form-control', 'placeholder' => 'Compensation Extras', 'rows' => '3']); }}<br/>
 
 			</div>
 		</div>
@@ -59,7 +82,7 @@
 		    <div class="panel-body">
 
 		    	<div class="col-md-6">
-				    {{ Form::label('company_name', 'Company Name'); }}
+				    {{ Form::label('company_name', 'Company Name'); }} <span class="glyphicon glyphicon-asterisk" style="color: red"></span>
 					{{ Form::text('company_name', null, ['class' => 'form-control', 'placeholder' => 'Company Name']); }}
 
 				    {{ Form::label('address', 'Address'); }}
@@ -67,10 +90,10 @@
 				</div>
 
 				<div class="col-md-6">
-					{{ Form::label('city', 'City') }}
+					{{ Form::label('city', 'City') }} <span class="glyphicon glyphicon-asterisk" style="color: red"></span>
 					{{ Form::text('company_city', null, ['class' => 'form-control', 'placeholder' => 'City']); }}
 
-					{{ Form::label('state', 'State') }}
+					{{ Form::label('state', 'State') }} <span class="glyphicon glyphicon-asterisk" style="color: red"></span>
 					{{ Form::text('company_state', null, ['class' => 'form-control', 'placeholder' => 'State']); }}
 				</div>
 

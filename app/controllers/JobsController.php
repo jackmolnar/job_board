@@ -95,6 +95,7 @@ class JobsController extends \BaseController {
 	{
 		$result = $this->job->get_job($id);
         $user = $this->user->authed_user();
+        //return $user->role;
         //dd($result->applications->first()->user);
         return View::make('jobs.show', ['job' => $result, 'user' => $user ]);
 	}

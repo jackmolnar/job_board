@@ -48,7 +48,14 @@ class ApplicationCommentsController extends \BaseController {
 	 */
 	public function store($job_id, $app_id)
 	{
-		$this->application->create_app_comment(Input::all(), $app_id, $this->user->authed_user());
+		$result = $this->application->create_app_comment(Input::all(), $app_id, $this->user->authed_user());
+
+        if(!$result['status']) {
+            return Redirect::back()->withInput()->withErrors($result['messages']);
+        } else {
+            return Redirect::action('ApplicationsController@show', [$job_id, $app_id])->with('success', $result['messages']);
+        }
+
 	}
 
 	/**
@@ -94,9 +101,10 @@ class ApplicationCommentsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($job_id, $app_id, $comment_id)
 	{
-		//
+        $this->application->delete_app_comment($comment_id);
+        return Redirect::action('ApplicationsController@show', [$job_id, $app_id])->with('success', 'Comment Deleted.');
 	}
 
 }

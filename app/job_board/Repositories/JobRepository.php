@@ -33,6 +33,9 @@ class JobRepository {
                 'pay' => $input['pay'],
                 'experience' => $input['experience'],
                 'compensation_extras' => $input['compensation_extras'],
+                'contact_link' => $input['contact_link'],
+                'contact_email' => $input['contact_email'],
+                'confidential' => $input['confidential'],
                 'company_name' => $input['company_name'],
                 'company_city' => $input['company_city'],
                 'company_address' => $input['company_address'],
@@ -70,6 +73,9 @@ class JobRepository {
             $job->pay = $input['pay'];
             $job->experience = $input['experience'];
             $job->compensation_extras = $input['compensation_extras'];
+            $job->contact_link = $input['contact_link'];
+            $job->contact_email = $input['contact_email'];
+            $job->confidential = isset($input['confidential']) ? $input['confidential'] : 0;
             $job->company_name = $input['company_name'];
             $job->company_city = $input['company_city'];
             $job->company_address = $input['company_address'];
@@ -101,7 +107,7 @@ class JobRepository {
 	 */
 	public function get_authors_jobs($id){
 
-		$jobs = Job::where('user_id', '=', $id)->get();
+		$jobs = Job::with('programs')->where('user_id', '=', $id)->get();
 		return $jobs;
 	}
 

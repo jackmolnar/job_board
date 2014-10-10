@@ -1,4 +1,5 @@
 <?php
+use job_board\Helpers\StatusHelpers;
 use job_board\Repositories\ApplicationRepository;
 use job_board\Repositories\JobRepository;
 use job_board\Repositories\UserRepository;
@@ -25,14 +26,19 @@ class ApplicationsController extends \BaseController
      * @var ApplicationRepository
      */
     private $application;
+    /**
+     * @var StatusHelpers
+     */
+    private $status_helpers;
 
-    function __construct(UserRepository $user, JobRepository $job, ApplicationRepository $application)
+    function __construct(UserRepository $user, JobRepository $job, ApplicationRepository $application, StatusHelpers $status_helpers)
     {
         $this->beforeFilter('auth');
 
         $this->job = $job;
         $this->user = $user;
         $this->application = $application;
+        $this->status_helpers = $status_helpers;
     }
 
     /**
@@ -76,6 +82,8 @@ class ApplicationsController extends \BaseController
         $user = $this->user->authed_user();
         $application = $this->application->get_application($app_id);
 
+        $application = $this->status_helpers->admin_first_review($application, $user);
+
         return View::make('applications.show', ['job' => $job, 'user' => $user, 'application' => $application]);
     }
 
@@ -92,8 +100,6 @@ class ApplicationsController extends \BaseController
         $this->application->delete_application($app_id);
         return Redirect::action('JobsController@show', [$job_id])->with('success', 'Application Withdrawn.');
     }
-
-
 
 }
 

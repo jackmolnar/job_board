@@ -1,0 +1,1 @@
+{{ link_to_action('JobsController@edit', 'Edit', $job['id'], ['class' => 'btn btn-success btn-xs']); }}
