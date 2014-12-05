@@ -1,14 +1,22 @@
 <?php 
 $I = new FunctionalTester($scenario);
 
+
+
 $I->am('a guest');
 $I->wantTo('login');
 
 $I->amOnPage('/');
-$I->fillField('email', 'jackmolnar1982@gmail.com');
-$I->fillField('password', 'frontline1');
+
+$I->haveAnAccount([
+    'email' => 'foo@example.com',
+    'password' => 'frontline'
+]);
+
+$I->fillField('email', 'foo@example.com');
+$I->fillField('password', 'frontline');
 $I->click('Login');
 
-$I->amOnPage('/users');
+$I->seeInCurrentUrl('/users');
 
 

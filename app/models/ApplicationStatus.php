@@ -19,5 +19,23 @@ class ApplicationStatus extends \Eloquent {
         return $this->belongsTo('Application');
     }
 
+    /**
+     * Get and format statuses as array usable by blade.
+     * @return array
+     */
+    public static function returnDropdownArray()
+    {
+        $statuses = ApplicationStatus::get();
+
+        $data = array();
+
+        foreach ($statuses as $status) {
+            $data[$status->id] = $status->title;
+        }
+
+        return $data;
+    }
+
+
 
 }

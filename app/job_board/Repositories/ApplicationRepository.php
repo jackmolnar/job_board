@@ -62,7 +62,8 @@ class ApplicationRepository {
         $app = Application::with(array('comments' => function($query)
         {
             $query->orderBy('created_at', 'asc');
-        }))->where('id', '=', $app_id)->first();
+        }, 'user'))->where('id', '=', $app_id)->first();
+
         return $app;
     }
 
@@ -80,9 +81,10 @@ class ApplicationRepository {
     /**
      * Create a new application comment
      *
-     * @param Form input   $input
+     * @param Form mixed   $input
      * @param Int   $app_id
      * @param Object   $user
+     * @return Array  $valid
      */
     public function create_app_comment($input, $app_id, $user)
     {

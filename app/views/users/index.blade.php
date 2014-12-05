@@ -10,6 +10,8 @@
 
     @if($user->role->title == 'Administrator')
         @include('../includes/profile/admin_index')
+    @elseif($user->role->title == 'Employment Specialist')
+        @include('../includes/profile/emp_specialist_index')
     @elseif($user->role->title == 'Graduate')
         @include('../includes/profile/grad_index')
     @endif

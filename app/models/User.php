@@ -12,7 +12,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	/**
 	 * Set fillable columns
 	 */
-	protected $fillable = ['email', 'password', 'first_name', 'last_name', 'role_id'];
+	protected $fillable = ['email', 'password', 'first_name', 'last_name', 'role_id', 'employment_specialist'];
 
 
 	/**
@@ -79,7 +79,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasMany('ApplicationComment');
     }
 
-
+    /**
+     * Grad belongs to Employment Specialist
+     */
+    public function specialist()
+    {
+        return $this->hasOne('User', 'id', 'employment_specialist');
+    }
 
 
 

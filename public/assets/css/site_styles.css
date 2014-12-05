@@ -43,6 +43,11 @@ Main Stuff
     box-shadow: 1px 1px 5px #999;
     text-shadow: 1px 1px 1px #fff;
 }
+.page_headline .job_date {
+    float: right;
+    font-size: 20px;
+    margin-right: 30px;
+}
 .half-text-area{
 	width: 50%;
 }
@@ -58,7 +63,9 @@ Main Stuff
     font-weight: 700;
     color: #ccf2f9;
 }
-
+.bold{
+    font-weight: bold;
+}
 /*
 Sub Row
 */
@@ -103,4 +110,12 @@ program drop down
 .program_dropdown select{
     display: inline;
     width: auto;
+}
+
+/*
+Application
+*/
+.comment {
+    padding: 10px;
+    border-bottom: solid #ddd 1px;
 }

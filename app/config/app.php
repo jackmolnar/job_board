@@ -124,6 +124,7 @@ return array(
 		'Illuminate\Exception\ExceptionServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
         'job_board\Composers\ComposerServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
 
 	],
 
@@ -191,6 +192,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+        'Excel'           => 'Maatwebsite\Excel\Facades\Excel'
 
 	),
 

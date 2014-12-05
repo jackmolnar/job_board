@@ -12,7 +12,7 @@
                             <tr>
                                 <td>{{ link_to('jobs/'.$application->job->id.'/applications/'.$application->id, $application->job->title )    }}</td>
                                 <td>{{ $application->status->title }}</td>
-                                <td>{{ $application->created_at }}</td>
+                                <td>{{ $application->created_at->format('m/d/y - g:i A') }}</td>
                             </tr>
                         @endforeach
                     </table>
@@ -26,14 +26,32 @@
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading"><h4>Personal Information</h4></div>
-                <div class="panel-body">
-                    <p>Name: {{ $user->first_name }} {{ $user->last_name }}</p>
-                    <p>Phone: {{ $user->details->phone }}</p>
-                    <p>Email: {{$user->email }}</p>
-                </div>
+            <div class="panel-body">
+                <p>Name: {{ $user->first_name }} {{ $user->last_name }}</p>
+                <p>Phone: {{ $user->details->phone }}</p>
+                <p>Email: {{$user->email }}</p>
+            </div>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>My Employment Specialist</h4></div>
+            <div class="panel-body">
+                @if(isset($user->specialist->first_name))
+                    <p>Name: {{ $user->specialist->first_name }} {{ $user->specialist->last_name }}</p>
+                    <p>Email: <a href="mailto:{{ $user->specialist->email }}">{{ $user->specialist->email }} </a></p>
+                    <p>Phone: {{ $user->specialist->details->phone }}</p>
+                @else
+
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-md-6">

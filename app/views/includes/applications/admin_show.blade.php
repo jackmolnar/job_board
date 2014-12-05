@@ -1,6 +1,6 @@
 
 		<div class="panel panel-default">
-		    <div class="panel-heading">Details</div>
+		    <div class="panel-heading">Job Details</div>
 		    <div class="panel-body">
 
 		        <div class="row">
@@ -32,15 +32,6 @@
 		    <div class="panel-heading">Company Info</div>
 		    <div class="panel-body">
 
-		    	<div class="col-md-6">
-                    <h4>{{ $job['company_name'] }}</h4>
-                    <h4>{{ $job['company_address'] }}</h4>
-				</div>
-
-				<div class="col-md-6">
-                    <h4>{{ $job['company_city'] }}</h4>
-                    <h4>{{ $job['company_state'] }}</h4>
-				</div>
 
 		    </div>
 		</div>

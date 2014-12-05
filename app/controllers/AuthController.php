@@ -21,11 +21,11 @@ class AuthController extends \BaseController {
 	{
 		//validate required input
 		$valid = $this->validator->auth(Input::all());
-
 		if($valid['status'])
 		{
-			if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')))){
-				return Redirect::action('UsersController@index');
+
+            if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')))){
+                return Redirect::action('UsersController@index');
 			} else {
 				return Redirect::back()->withErrors('Email or Password are incorrect.')->withInput();
 			}

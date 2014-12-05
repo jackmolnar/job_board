@@ -27,7 +27,7 @@
                             <a class="btn btn-default btn-xs add_program" style="margin-left: 25px">Add Program</a>
                             <a class="btn btn-default btn-xs delete_program">Delete Program</a>
                             <div class="col-md-6 program_dropdown">
-                                {{ Form::select('programs[]', $programs, null, ['class' => 'form-control', 'placeholder' => 'Title']); }}<br/>
+                                {{ Form::select('programs[]', $programs, null, ['class' => 'form-control', 'id' => 'programs', 'placeholder' => 'Title']); }}<br/>
                             </div>
 		            </div>
 		        </div>

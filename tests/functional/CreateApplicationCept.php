@@ -4,34 +4,33 @@ $I = new FunctionalTester($scenario);
 $I->am('Logged in graduate');
 $I->wantTo('apply for a job');
 
-$I->amLoggedAs(['id' => 12, 'email'=>'jonm@glit.edu', 'password' => 'frontline1', 'role_id' => 3]);
-$I->seeAuthentication();
+$user = $I->haveAnAccount(['email' => 'example@foo.com', 'password' => 'frontline', 'role_id' => '3' ])
+    ->attachedToProgram(['title' => 'Veterinary Assistant'])
+    ->logIn();
 
-$I->amOnPage('/jobs/all');
-$I->see('My new Job');
-$I->click('My new Job');
+$job = $I->haveAJob(['title' => 'My new job', 'company_name' => 'glit'], $user->user->programs->first()->id);
 
-$I->amOnPage('/jobs/6');
+$I->amOnPage('/jobs/'.$job->id);
 $I->see('Apply');
-$I->click('Apply');
+$I->click('#apply_button');
 
-$I->amOnPage('/jobs/6/applications/create');
+$I->seeCurrentUrlEquals('/jobs/'.$job->id.'/applications/create');
 $I->see('Request Application');
 
 $I->fillField('message', 'I really want this job');
 $I->click('Send Application Request');
 
 $I->seeRecord('applications', [
-    'job_id' => 6,
-    'user_id' => 12,
+    'job_id' => $job->id,
+    'user_id' => $user->user->id,
     'status_id' => 1,
 ]);
 
 $I->seeRecord('application_comments', [
-    'user_id' => 12,
+    'user_id' => $user->user->id,
     'body' => 'I really want this job'
 ]);
 
-$I->amOnPage('/jobs/6');
+$I->amOnPage('/jobs/'.$job->id);
 
 $I->see('Application Sent.');

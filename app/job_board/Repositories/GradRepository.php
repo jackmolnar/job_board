@@ -8,6 +8,7 @@
 
 namespace job_board\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use User;
 
 class GradRepository {
@@ -44,18 +45,21 @@ class GradRepository {
         //get the users programs
         $programs = $user->programs;
 
-        //set up the array
-        $users_grad_list = array();
+        //set up the collection
+        $users_grad_list = new Collection;
 
         //for each program, push grads into array
         foreach($programs as $program){
-            $users_grad_list[$program->title] = User::with(['details', 'programs'])->whereHas('role', function($query)
+            $users = User::with(['details', 'programs'])->whereHas('role', function($query)
                     {
                         $query->where('title', '=', 'Graduate');
                     })->whereHas('programs', function($query) use ($program)
                     {
                         $query->where('programs.id', '=', $program->id);
                     })->get();
+
+            // merge each collection of users with master collection
+            $users_grad_list = $users_grad_list->merge($users);
         }
 
         return $users_grad_list;

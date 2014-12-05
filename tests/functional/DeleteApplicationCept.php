@@ -4,28 +4,37 @@ $I = new FunctionalTester($scenario);
 $I->am('logged in graduate');
 $I->wantTo('want to withdraw an application');
 
-$I->amLoggedAs(['id' => 12, 'email'=>'jonm@glit.edu', 'password' => 'frontline1', 'role_id' => 3]);
-$I->seeAuthentication();
+$user = $I->haveAnAccount(['email' => 'example@foo.com', 'password' => 'frontline', 'role_id' => '3' ])
+    ->attachedToProgram(['title' => 'Veterinary Assistant'])
+    ->logIn();
+
+$job = $I->haveAJob(['title' => 'My new job', 'company_name' => 'glit'], $user->user->programs->first()->id);
+$application = $I->haveAnOpenApplication($user->user, $job);
+
 
 $I->amOnPage('/jobs/all');
-$I->see('My new Job');
-$I->click('My new Job');
+$I->see('My new job');
+$I->click('My new job');
 
-$I->amOnPage('/jobs/6');
+$I->amOnPage('/jobs/'.$job->id);
 $I->see('Applied!');
 $I->click('View Application');
 
-$I->amOnPage('/jobs/6/applications/22');
+$I->amOnPage('/jobs/'.$job->id.'/applications/'.$application->id);
 $I->see('Withdraw Application');
+
+$app = $I->grabRecord('applications', ['user_id' => $user->user->id, 'job_id' => $job->id, 'status_id' => 3]);
+
+//dd($app->id.'     '.$application->id);
+
 $I->click('Withdraw Application');
 
 $I->dontSeeRecord('applications', [
-    'id' => '22'
+    'user_id' => $user->user->id
 ]);
 $I->dontSeeRecord('application_comments', [
-    'application_id' => '22'
+    'application_id' => $application->id
 ]);
 
-$I->amOnPage('/jobs/6');
-$I->see('Application Withdrawn.');
+$I->amOnPage('/jobs/'.$job->id);
 

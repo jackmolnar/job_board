@@ -21,10 +21,6 @@ $I->seeRecord('users', [
 	'role_id' => '2',
 	]);
 
-//$I->grabRecord('users', [
-//    'email' => 'jonm@glit.edu'
-//]);
-
 $I->amOnPage('/');
 $I->see('Please Log In');
 

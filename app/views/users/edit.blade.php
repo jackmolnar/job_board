@@ -12,6 +12,8 @@
 
     @if($user->role->title == 'Administrator')
         @include('../includes/profile/admin_edit')
+    @elseif($user->role->title == 'Employment Specialist')
+        @include('../includes/profile/emp_specialist_edit')
     @elseif($user->role->title == 'Graduate')
         @include('../includes/profile/grad_edit')
     @endif

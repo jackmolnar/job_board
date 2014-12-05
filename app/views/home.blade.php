@@ -23,7 +23,8 @@
 
 
   	{{ link_to_action('UsersController@create', 'Create New User') }}
-  	
+  	{{ link_to_action('RemindersController@getRemind', 'Forgot Password?') }}
+
 
 </div>
 

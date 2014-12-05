@@ -1,3 +1,10 @@
+
+
+	{{--This view is for a Grad updating itself--}}
+	{{--This view is for a Grad updating itself--}}
+	{{--This view is for a Grad updating itself--}}
+	{{--This view is for a Grad updating itself--}}
+
 	{{ Form::open(array('action' => array('UsersController@update', $user->id), 'method' => 'put')) }}
 
 	<div class="row">
@@ -55,12 +62,10 @@
                         {{ Form::label('company_name', 'Company'); }}
                         {{ Form::text('employer_name', $user_details->employer_name, ['class' => 'form-control', 'placeholder' => 'Employer']); }}<br/>
                     </div>
-                    <div class="col-md-6">
-                    </div>
                 </div>
             </div><!-- end panel -->
-        </div>
-    </div>
+        </div><!-- end column -->
+    </div><!-- end row -->
     <div class="row">
         <div class="col-md-12">
             {{ Form::submit('Save', ['class' => 'btn btn-md btn-primary btn-block']) }}

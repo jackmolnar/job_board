@@ -35,7 +35,7 @@ class JobRepository {
                 'compensation_extras' => $input['compensation_extras'],
                 'contact_link' => $input['contact_link'],
                 'contact_email' => $input['contact_email'],
-                'confidential' => $input['confidential'],
+                'confidential' => isset($input['confidential']) ? $input['confidential'] : 0,
                 'company_name' => $input['company_name'],
                 'company_city' => $input['company_city'],
                 'company_address' => $input['company_address'],
@@ -64,7 +64,7 @@ class JobRepository {
 		//create and update validator the same
 		$valid = $this->validator->update($input);
 
-		if($valid['status']){
+        if($valid['status']){
 
 			$job = Job::find($id);
             $job->title = $input['title'];
@@ -107,7 +107,7 @@ class JobRepository {
 	 */
 	public function get_authors_jobs($id){
 
-		$jobs = Job::with('programs')->where('user_id', '=', $id)->get();
+		$jobs = Job::with('programs')->where('user_id', '=', $id)->paginate(10);
 		return $jobs;
 	}
 

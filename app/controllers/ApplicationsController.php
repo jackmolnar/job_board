@@ -81,10 +81,12 @@ class ApplicationsController extends \BaseController
         $job = $this->job->get_job($job_id);
         $user = $this->user->authed_user();
         $application = $this->application->get_application($app_id);
+        $status_dropdown = ApplicationStatus::returnDropdownArray();
 
+        //change status to in review
         $application = $this->status_helpers->admin_first_review($application, $user);
 
-        return View::make('applications.show', ['job' => $job, 'user' => $user, 'application' => $application]);
+        return View::make('applications.show', ['job' => $job, 'user' => $user, 'application' => $application, 'status_dropdown' => $status_dropdown]);
     }
 
     /**

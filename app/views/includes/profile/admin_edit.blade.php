@@ -53,11 +53,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4>Programs I Manage</h4>
-
                     <a class="btn btn-default btn-xs add_program">Add Program</a>
                     <a class="btn btn-default btn-xs delete_program">Delete Program</a>
-
-
                 </div>
                 <div class="panel-body">
                     @foreach($user->programs as $program)
@@ -65,7 +62,6 @@
                             {{ Form::select('programs[]', $all_programs, $program->id, ['class' => 'form-control ', 'placeholder' => 'Title']); }}
                         </div>
                     @endforeach
-
                 </div>
             </div><!-- end panel -->
         </div><!-- end col -->

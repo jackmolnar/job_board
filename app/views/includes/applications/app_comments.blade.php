@@ -5,8 +5,8 @@
             @foreach($application->comments as $comment)
             <div class="row comment">
                 <div class="col-md-2">
-                    {{ $comment->author->first_name }} {{ $comment->author->last_name }} said at <br/>
-                    {{ $comment->created_at }}
+                    <span class="bold">{{ $comment->author->first_name }} {{ $comment->author->last_name }}</span> said <br/>
+                    {{ $comment->created_at->diffForHumans() }}
                 </div>
                 <div class="col-lg-7">
                     {{ $comment->body }}

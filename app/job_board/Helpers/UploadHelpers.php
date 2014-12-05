@@ -40,4 +40,30 @@ class UploadHelpers {
         }
         return $new_name;
     }
-} 
+
+    /**
+     * Check file for required fields
+     * @param array $input
+     * @param array $fields
+     * @return mixed
+     */
+    public function validate_excel_file(Array $input, $required_fields = array())
+    {
+        //validate all the rows
+        foreach($input as $key => $row){
+            foreach ($required_fields as $field){
+                if($row[$field] == ''){
+                    //not valid, set array
+                    $valid['status'] = false;
+                    $valid['messages'] = "Could not be processed. All fields required. Check line ".($key+2)." of your excel file.";
+                    return $valid;
+                }
+            }
+        }
+        //if valid, set array
+        $valid['status'] = true;
+        $valid['messages'] = "Valid";
+        return $valid;
+    }
+
+}
